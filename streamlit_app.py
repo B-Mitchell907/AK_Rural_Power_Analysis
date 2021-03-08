@@ -1,19 +1,16 @@
-from logging import error
 import streamlit as st
+from logging import error
+from streamlit.logger import setup_formatter
+
 import pandas as pd
 import matplotlib.pyplot as plt
-#from source_data import data_df_dict
-from streamlit.logger import setup_formatter
 import seaborn as sns
-import os
-from data import processed
+
+from source_data import data_df_dict
 
 ########## Loading Data into Streamlit ############
 
-@st.cache
-def load_data():
-    fh = os.path('\processed\Complete_combined_wind_solar_diesel.pkl')
-    return pd.read_pickle(filepath_or_buffer=fh , compression='bz2')
+
 
 
 #### Looking creating calculations for wind power cost: includes size, capacity factor, wind class suggestion,
@@ -21,8 +18,14 @@ def load_data():
 
 
 ###Main Script
-st.set_page_config(layout="wide")
+## Page Layout
+#st.set_page_config(layout="wide")
+
 col1a, col2a = st.beta_columns((1,1))
+
+col1, col2, col3 = st.beta_columns((1.5,1,1))
+
+col1b, col2b = st.beta_columns((1,1))
 
 
 #Title
@@ -33,7 +36,7 @@ col1a.title('Alaska Rural Energy Calculator')
 
 #data_df = pd.read_csv(filepath_or_buffer=os.path.commonpath('TabSep_Complete_combined_wind_solar_diesel.tsv'), sep='\t')
 
-data_df = load_data()
+data_df = pd.DataFrame.from_dict(data_df_dict)
 
 #extracting city list for options
 city_options = list(data_df['Name'])
@@ -51,11 +54,6 @@ selected_df = selected_city_df(data_df, selected_city=city_selector)
 
 
 
-
-# Dividing up columns For displaying data
-col1, col2, col3 = st.beta_columns((2,1,1))
-
-col1b, col2b = st.beta_columns((1,1))
 
 
 
@@ -147,7 +145,7 @@ def wind_adjusted_capex_per_kw(default_capex, size):
 
 wind_adjusted_capex = wind_adjusted_capex_per_kw(default_capex=default_capex, size=wind_installation_size)
 
-wind_capex_value = col2.select_slider(label='CapEx of Wind Project ($/kw)', 
+wind_capex_value = col2.select_slider(label='CapEx of Wind Project ($/kW)', 
                                         options=[x*100 for x in range(40,301)], 
                                         value=wind_adjusted_capex)
 
@@ -215,7 +213,7 @@ est_panel_size = solar_size_est(selected_df, cap_factor=est_solar_cap_factor)
 
 
 solar_installation_size = col3.select_slider(
-                        label='Installion Size of Panels, (kW)', 
+                        label='Installion Size of Panels (kW)', 
                         options=[x*100 for x in range(1,101)], 
                         value=est_panel_size)
 
@@ -332,8 +330,6 @@ col1b.table(table_df)
 
 #### Adding Descripotion of Calculator and citing data sources
 
-st.subheader('Calculator Description')
-st.text(
-    "This is a test for commiting verison to different branches. \n"
-    "Does this show"
-)
+#st.subheader('Calculator Description')
+st.text("This is a test for commiting verison to different branches. \n"
+    "Does this show")
