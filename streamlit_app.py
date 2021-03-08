@@ -2,18 +2,18 @@ from logging import error
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from source_data import data_df_dict
+#from source_data import data_df_dict
 from streamlit.logger import setup_formatter
 import seaborn as sns
-
-
+import os
+from data import processed
 
 ########## Loading Data into Streamlit ############
 
-#@st.cache
-# def load_data():
-    #fh = os.path('Users\mitch\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\data\processed\combined_wind_solar_diesel.pkl')
-    #return pd.read_pickle(filepath_or_buffer=fh , compression='bz2')
+@st.cache
+def load_data():
+    fh = os.path('\processed\Complete_combined_wind_solar_diesel.pkl')
+    return pd.read_pickle(filepath_or_buffer=fh , compression='bz2')
 
 
 #### Looking creating calculations for wind power cost: includes size, capacity factor, wind class suggestion,
@@ -33,7 +33,7 @@ col1a.title('Alaska Rural Energy Calculator')
 
 #data_df = pd.read_csv(filepath_or_buffer=os.path.commonpath('TabSep_Complete_combined_wind_solar_diesel.tsv'), sep='\t')
 
-data_df = pd.DataFrame.from_dict(data=data_df_dict)
+data_df = load_data()
 
 #extracting city list for options
 city_options = list(data_df['Name'])
@@ -335,5 +335,5 @@ col1b.table(table_df)
 st.subheader('Calculator Description')
 st.text(
     "This is a test for commiting verison to different branches. \n"
-    "C:\Users\mitch\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\streamlit_app.py"
+    "Does this show"
 )
