@@ -330,8 +330,10 @@ col1b.table(table_df)
 
 
 
-
 #### Adding Descripotion of Calculator and citing data sources
 
 st.subheader('Calculator Description')
-st.text('This is a test for commiting verison to different branches')
+st.text(
+    "This is a test for commiting verison to different branches. \n"
+    "C:\Users\mitch\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\streamlit_app.py"
+)
