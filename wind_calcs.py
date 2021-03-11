@@ -23,7 +23,7 @@ def Turbine_size_est(df, est_cap_factor):
 ## estimates are dervied from PCE (Power Cost Equalizer) rate.
 ## this can represent how costly it is to produce power in given city.
 #### A Correlation between PCE rate and CapEx is used for estimation.   
-def Wind_est_capex_per_kw(df):
+def est_capex_per_kw(df):
     pce_cost = df['pce_rate'].item()
     if pce_cost == 0 or pce_cost == 'nan':
         capex = 4000
@@ -37,7 +37,7 @@ def Wind_est_capex_per_kw(df):
 
 # Adjusting CapEx relativie to size of turbine installation.
 ## Coefficents are taking from a Logistic Regression of past projects with respect to CapEx vs Installation size
-def wind_adjusted_capex_per_kw(default_capex, size):
+def adjusted_capex_per_kw(default_capex, size):
     coef_dict = {50: 0.082,  100: 0.07634832, 200: 0.05886931, 500: 0.03408415, 1000: -0.02408789, 2000: -0.24361946}
     if size >= 2000:
         adjusted_cap = default_capex * (1 + coef_dict[2000])
@@ -56,7 +56,7 @@ def wind_adjusted_capex_per_kw(default_capex, size):
 
 
 # calculating Levelized Cost Of Energy per kiloWatt-hour
-def Wind_LCOE_per_kwh(interest, inflation, N, capacity_factor, turbine_size_kw, capex):
+def LCOE_per_kwh(interest, inflation, N, capacity_factor, turbine_size_kw, capex):
     #changing turbine size for cities if turnbine_size_kw == 0
     if turbine_size_kw == 0:
         turbine_size_kw = 50
