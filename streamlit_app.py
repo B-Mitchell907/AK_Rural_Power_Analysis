@@ -37,16 +37,13 @@ col1a.title('Alaska Rural Energy Calculator')
 
 ######################################################
 # Loading in DataFrame 
-
-data_df = pd.DataFrame(data_df_dict)
-
 @st.cache
 def load_data():
     fh = os.getcwd() + '\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\data\processed\Complete_combined_wind_solar_diesel.pkl'
     return pd.read_pickle(filepath_or_buffer=fh, compression='bz2')
 
 
-#data_df = load_data()
+data_df = load_data()
 
 
 ######################################################################
