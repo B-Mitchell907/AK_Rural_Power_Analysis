@@ -24,17 +24,17 @@ import solar_calcs
 ###################################
 st.set_page_config(layout="wide")
 
-col1a, col2a = st.beta_columns((1,1))
+col1a, col2a, col3a = st.beta_columns((1.5,1,1))
 
 col1b, col2b, col3b = st.beta_columns((1.5,1,1))
 
-col1c, col2c = st.beta_columns((1,1))
+col1c, col2c = st.beta_columns((1.5,2))
 
 
 ###########################
 # Title
 ###########################
-col1a.title('Alaska Rural Energy Calculator')
+col1a.title('Alaska Rural Energy Cost Calculator')
 
 ######################################################
 # Loading in DataFrame 
@@ -67,9 +67,9 @@ selected_df = selected_city_df(data_df, selected_city=city_selector)
 
 ############################################################
 # Creating drop down menu for setting interest rate
-expand = col2c.beta_expander('Interest Rate for Project', expanded=False)
+expand = col3a.beta_expander('Interest Rate for Project', expanded=False)
 
-interest_rate = expand.select_slider(label='Precentage (%)', options=[x/10 for x in range(1,201)], value=5.0)
+interest_rate = expand.select_slider(label='Precentage (%)', options=[x/10 for x in range(1,101)], value=5.0)
 
 # Set Inflation rate as it has minimal effect of Levelised Cost of Energy Calculations.
 inflation_rate = 2.0
@@ -248,5 +248,7 @@ col1c.table(table_df)
 #### Adding Descripotion of Calculator and citing data sources
 
 #st.subheader('Calculator Description')
-st.text("This is a test for commiting verison to different branches. \n"
-    "Does this show")
+
+col2c.write("*Alaska Rural Energy Cost Calculator:* \n"
+    "This program does not garuntee the default estimations and approximation about each energy sources is correct for a given city/village."
+)
