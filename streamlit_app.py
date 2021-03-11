@@ -85,6 +85,8 @@ turbine_lifetime = col2.slider(label='Wind Turbine Lifetime (years)', min_value=
 
 # Capcity factor for Wind turbine output
 default_cap_factor = wind_calcs.default_capacity_factor(df=selected_df)
+
+# slider for selecting capacity factor
 capacity_factor = col2.select_slider(label='Output Capacity Factor (%)', options=[x for x in range(10,46)], value=default_cap_factor)
 
 # Turbine Installation Size 
@@ -94,24 +96,24 @@ est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=0.25)
 wind_installation_size = col2.select_slider('Total Size of Installation (kW)', options=[x*100 for x in range(1,101)], value=est_turbine_size)
 
 # Default estimate for Capital Expenditure 
-default_capex = wind_calcs.Wind_est_capex_per_kw(df=selected_df)
+default_capex = wind_calcs.est_capex_per_kw(df=selected_df)
     
 # adjusting Capital expenditure to reflect construction cost based of city/village size and remoteness 
-wind_adjusted_capex = wind_calcs.wind_adjusted_capex_per_kw(default_capex=default_capex, size=wind_installation_size)
+wind_adjusted_capex = wind_calcs.adjusted_capex_per_kw(default_capex=default_capex, size=wind_installation_size)
 
 # manual slider for adjusting Capital Expenditure per kiloWatt
-wind_capex_value = col2.select_slider(label='CapEx of Wind Project ($/kW)', 
-                                        options=[x*100 for x in range(40,301)], 
-                                        value=wind_adjusted_capex)
-
+wind_capex_value = col2.select_slider(
+                        label='CapEx of Wind Project ($/kW)', 
+                        options=[x*100 for x in range(40,301)], 
+                        value=wind_adjusted_capex
+                        )
 
 # Levelised Cost of Energy 
-est_wind_LCOE = wind_calcs.Wind_LCOE_per_kwh(
+est_wind_LCOE = wind_calcs.LCOE_per_kwh(
                         interest=interest_rate, inflation=inflation_rate, 
                         N=turbine_lifetime, capacity_factor=capacity_factor, 
-                        turbine_size_kw=wind_installation_size, capex=wind_capex_value)
-
-
+                        turbine_size_kw=wind_installation_size, capex=wind_capex_value,
+                        )
 
 
 
@@ -119,7 +121,6 @@ est_wind_LCOE = wind_calcs.Wind_LCOE_per_kwh(
 ########################################################################
 # Solar Calcs
 ########################################################################
-#  
 col3.subheader('Solar Energy')
 
 panel_lifetime = col3.slider(label='Solar Panel Lifetime (years)', min_value=20, max_value=45, value=30, step=1)
