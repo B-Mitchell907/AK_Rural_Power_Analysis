@@ -98,7 +98,7 @@ capacity_factor = col2.select_slider(label='Output Capacity Factor (%)', options
 est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=0.25) 
 
 # Slider for manually selecting installation size
-wind_installation_size = col2.select_slider('Total Size of Installation (kW)', options=[x*100 for x in range(1,101)], value=est_turbine_size)
+wind_installation_size = col2.select_slider('Total Size of Installation (kW)', options=[x*50 for x in range(1,201)], value=est_turbine_size)
 
 # Default estimate for Capital Expenditure 
 default_capex = wind_calcs.est_capex_per_kw(df=selected_df)
