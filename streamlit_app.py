@@ -81,6 +81,7 @@ inflation_rate = 2.0
 ##################################################################
 col2.subheader('Wind Energy')
 
+# selecting lifetime span of turbines for the project
 turbine_lifetime = col2.slider(label='Wind Turbine Lifetime (years)', min_value=15, max_value=35, value=20, step=1)
 
 # Capcity factor for Wind turbine output
@@ -123,6 +124,7 @@ est_wind_LCOE = wind_calcs.LCOE_per_kwh(
 ########################################################################
 col3.subheader('Solar Energy')
 
+# selecting 
 panel_lifetime = col3.slider(label='Solar Panel Lifetime (years)', min_value=20, max_value=45, value=30, step=1)
 
 
