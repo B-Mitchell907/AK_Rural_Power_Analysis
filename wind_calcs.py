@@ -15,7 +15,7 @@ def default_capacity_factor(df) -> float:
 def Turbine_size_est(df, est_cap_factor):
     total_kwh = df['total_kwh_sold'].item()
     est_size = total_kwh * 0.3 / (8760 * est_cap_factor)
-    rounded_size = round(est_size, -1)
+    rounded_size = round(est_size, -2)
     if rounded_size == 0:
         rounded_size == 50
     return rounded_size

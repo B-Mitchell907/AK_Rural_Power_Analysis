@@ -45,7 +45,6 @@ def load_data():
 
 data_df = load_data()
 
-
 ######################################################################
 # Selections on which city to comapre and making dataframe for it
 
@@ -86,19 +85,33 @@ inflation_rate = 2.0
 col2.subheader('Wind Energy')
 
 # selecting lifetime span of turbines for the project
-turbine_lifetime = col2.slider(label='Wind Turbine Lifetime (years)', min_value=15, max_value=35, value=20, step=1)
+turbine_lifetime = col2.slider(
+                            label='Wind Turbine Lifetime (years)', 
+                            min_value=15, 
+                            max_value=35, 
+                            value=20, 
+                            step=1
+                            )
 
 # Capcity factor for Wind turbine output
 default_cap_factor = wind_calcs.default_capacity_factor(df=selected_df)
 
 # slider for selecting capacity factor
-capacity_factor = col2.select_slider(label='Output Capacity Factor (%)', options=[x for x in range(10,46)], value=default_cap_factor)
+capacity_factor = col2.select_slider(
+                            label='Output Capacity Factor (%)', 
+                            options=[x for x in range(10,46)], 
+                            value=default_cap_factor
+                            )
 
 # Turbine Installation Size 
 est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=0.25) 
 
 # Slider for manually selecting installation size
-wind_installation_size = col2.select_slider('Total Size of Installation (kW)', options=[x*50 for x in range(1,201)], value=est_turbine_size)
+wind_installation_size = col2.select_slider(
+                                label='Total Size of Installation (kW)', 
+                                options=[x*50 for x in range(1,201)], 
+                                value=est_turbine_size
+                                )
 
 # Default estimate for Capital Expenditure 
 default_capex = wind_calcs.est_capex_per_kw(df=selected_df)
@@ -129,10 +142,16 @@ est_wind_LCOE = wind_calcs.LCOE_per_kwh(
 col3.subheader('Solar Energy')
 
 # selecting 
-panel_lifetime = col3.slider(label='Solar Panel Lifetime (years)', min_value=20, max_value=45, value=30, step=1)
+panel_lifetime = col3.slider(
+                        label='Solar Panel Lifetime (years)', 
+                        min_value=20, 
+                        max_value=45, 
+                        value=30, 
+                        step=1,
+                        )
 
 # Extracting default Capacity factor
-default_solar_cap_factor = solar_calcs.solar_capacity_factor(df=selected_df)
+default_solar_cap_factor = solar_calcs.capacity_factor(df=selected_df)
 
 # Manual slider for adjusting solar output capacity factor
 est_solar_cap_factor = col3.select_slider(
@@ -147,68 +166,35 @@ est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_fact
 # selecting installtion size
 solar_installation_size = col3.select_slider(
                         label='Installion Size of Panels (kW)', 
-                        options=[x*100 for x in range(1,101)], 
-                        value=est_panel_size)
+                        options=[x*100 for x in range(1,151)], 
+                        value=est_panel_size,
+                        )
 
 
-# Capital Expenditure ####################################################################
-
-def solar_est_capex_per_kw(df, lowest_capex, highest_capex):
-    pce_cost = df['pce_rate'].item()
-    kw_coef = (highest_capex - lowest_capex) / 0.75
-    if pce_cost == 0 or pce_cost == 'nan':
-        capex = lowest_capex
-    elif pce_cost >= 0.75:
-        capex = lowest_capex
-    else:
-        capex = 1500 + pce_cost * kw_coef
-    return round(capex, -2)
-
-
-solar_default_capex = solar_est_capex_per_kw(df=selected_df, lowest_capex=3000, highest_capex=13500)
+# Capital Expenditure for Solar Project
+solar_default_capex = solar_calcs.est_capex_per_kw(df=selected_df)
 
 solar_capex_value = col3.select_slider(
-                label='CapEx of Solar Project ($/kW)', 
-                options=[x*100 for x in range(10,150)], 
-                value=solar_default_capex)
+                            label='CapEx of Solar Project ($/kW)', 
+                            options=[x*100 for x in range(10,150)], 
+                            value=solar_default_capex,
+                            )
 
+# Annual Production of Solar 
+solar_production = solar_calcs.annual_production_kwh(
+                            panel_array_size=solar_installation_size, 
+                            solar_cap_factor=est_solar_cap_factor,
+                            )
 
-
-# Annual Production of Solar #############################
-
-def solar_annual_production(panel_array_size, solar_cap_factor):
-    decimal_cap = solar_cap_factor / 100
-    production_kwh = decimal_cap * 8760 * panel_array_size
-    return production_kwh
-
-
-solar_production = solar_annual_production(
-                    panel_array_size=solar_installation_size, 
-                    solar_cap_factor=est_solar_cap_factor)
-
-
-
-# Solar Levelised Cost of Energy ###########################################################
-
-def Solar_LCOE_per_kwh(interest, inflation, N, solar_production, size_kw, capex):
-    operating_maintence = 45 * size_kw
-    r = interest / 100
-    i = inflation / 100
-
-    capital_recovery_factor = r / (1-(1+r)**(-N))  
-    net_present_value = (capex * size_kw) + sum([( (1+i) / (1+r) )**x for x in range(1,N+1)]) + operating_maintence 
-    annual_production_kwh = solar_production
-    lcoe = (net_present_value * capital_recovery_factor) / annual_production_kwh         
-    return round(lcoe, 3)
-
-
-est_solar_LCOE = float(Solar_LCOE_per_kwh(
+# Solar Levelised Cost of Energy 
+est_solar_LCOE = solar_calcs.LCOE_per_kwh(
                     interest=interest_rate, 
                     inflation=inflation_rate, 
                     N=panel_lifetime, 
                     solar_production= solar_production,
                     size_kw=solar_installation_size, 
-                    capex=solar_capex_value))
+                    capex=solar_capex_value,
+                    )
 
 
 
