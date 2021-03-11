@@ -10,7 +10,7 @@ def solar_capacity_factor(df):
 
 
 # Estimating size of solar 
-### using 30% of overall use. value is near median for other state projects..
+### using 30% of overall use. value is near median for other state projects.
 def size_est(df, cap_factor):
     total_kwh = df['total_kwh_sold'].item()
     decimal_cap = cap_factor / 100
