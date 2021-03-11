@@ -1,3 +1,4 @@
+from numpy import rot90
 import streamlit as st
 from logging import error
 from streamlit.logger import setup_formatter
@@ -25,9 +26,9 @@ st.set_page_config(layout="wide")
 
 col1a, col2a = st.beta_columns((1,1))
 
-col1, col2, col3 = st.beta_columns((1.5,1,1))
+col1b, col2b, col3b = st.beta_columns((1.5,1,1))
 
-col1b, col2b = st.beta_columns((1,1))
+col1c, col2c = st.beta_columns((1,1))
 
 
 ###########################
@@ -66,7 +67,7 @@ selected_df = selected_city_df(data_df, selected_city=city_selector)
 
 ############################################################
 # Creating drop down menu for setting interest rate
-expand = col2b.beta_expander('Interest Rate for Project', expanded=False)
+expand = col2c.beta_expander('Interest Rate for Project', expanded=False)
 
 interest_rate = expand.select_slider(label='Precentage (%)', options=[x/10 for x in range(1,201)], value=5.0)
 
@@ -82,10 +83,10 @@ inflation_rate = 2.0
 ##################################################################
 # Wind Energy Calculations and Selections
 ##################################################################
-col2.subheader('Wind Energy')
+col2b.subheader('Wind Energy')
 
 # selecting lifetime span of turbines for the project
-turbine_lifetime = col2.slider(
+turbine_lifetime = col2b.slider(
                             label='Wind Turbine Lifetime (years)', 
                             min_value=15, 
                             max_value=35, 
@@ -97,7 +98,7 @@ turbine_lifetime = col2.slider(
 default_cap_factor = wind_calcs.default_capacity_factor(df=selected_df)
 
 # slider for selecting capacity factor
-capacity_factor = col2.select_slider(
+capacity_factor = col2b.select_slider(
                             label='Output Capacity Factor (%)', 
                             options=[x for x in range(10,46)], 
                             value=default_cap_factor
@@ -107,7 +108,7 @@ capacity_factor = col2.select_slider(
 est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=0.25) 
 
 # Slider for manually selecting installation size
-wind_installation_size = col2.select_slider(
+wind_installation_size = col2b.select_slider(
                                 label='Total Size of Installation (kW)', 
                                 options=[x*50 for x in range(1,201)], 
                                 value=est_turbine_size
@@ -120,7 +121,7 @@ default_capex = wind_calcs.est_capex_per_kw(df=selected_df)
 wind_adjusted_capex = wind_calcs.adjusted_capex_per_kw(default_capex=default_capex, size=wind_installation_size)
 
 # manual slider for adjusting Capital Expenditure per kiloWatt
-wind_capex_value = col2.select_slider(
+wind_capex_value = col2b.select_slider(
                         label='CapEx of Wind Project ($/kW)', 
                         options=[x*100 for x in range(40,301)], 
                         value=wind_adjusted_capex
@@ -139,10 +140,10 @@ est_wind_LCOE = wind_calcs.LCOE_per_kwh(
 ########################################################################
 # Solar Calcs
 ########################################################################
-col3.subheader('Solar Energy')
+col3b.subheader('Solar Energy')
 
 # selecting 
-panel_lifetime = col3.slider(
+panel_lifetime = col3b.slider(
                         label='Solar Panel Lifetime (years)', 
                         min_value=20, 
                         max_value=45, 
@@ -154,7 +155,7 @@ panel_lifetime = col3.slider(
 default_solar_cap_factor = solar_calcs.capacity_factor(df=selected_df)
 
 # Manual slider for adjusting solar output capacity factor
-est_solar_cap_factor = col3.select_slider(
+est_solar_cap_factor = col3b.select_slider(
                                 label='Output Capacity Factor (%)', 
                                 options=[x/10 for x in range(50,201)], 
                                 value=default_solar_cap_factor,
@@ -164,7 +165,7 @@ est_solar_cap_factor = col3.select_slider(
 est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_factor) 
 
 # selecting installtion size
-solar_installation_size = col3.select_slider(
+solar_installation_size = col3b.select_slider(
                         label='Installion Size of Panels (kW)', 
                         options=[x*100 for x in range(1,151)], 
                         value=est_panel_size,
@@ -174,7 +175,7 @@ solar_installation_size = col3.select_slider(
 # Capital Expenditure for Solar Project
 solar_default_capex = solar_calcs.est_capex_per_kw(df=selected_df)
 
-solar_capex_value = col3.select_slider(
+solar_capex_value = col3b.select_slider(
                             label='CapEx of Solar Project ($/kW)', 
                             options=[x*100 for x in range(10,151)], 
                             value=solar_default_capex,
@@ -209,13 +210,12 @@ diesel_cost = round(float(selected_df['diesel_cost_per_kwh']), 3)
 ###################################################################################
 # Plotting 
 #######################################################################################
-col1.header('Energy Cost Comparison')
+col1b.header('Energy Cost Comparison')
 
 combined_lcoe = {'Wind': est_wind_LCOE, 'Solar': est_solar_LCOE, 'Diesel':diesel_cost}
 
 df_combined_lcoe = pd.DataFrame.from_dict(data=combined_lcoe, orient='index').rename(columns={0:'Cost per kilowatt-hour, ($/kWh)'})
 
-col3.bar_chart(df_combined_lcoe)
 
 fig,ax = plt.subplots()
 ax = sns.barplot(
@@ -224,9 +224,10 @@ ax = sns.barplot(
             palette='colorblind',
             )
 
+ax.set(xlim=(0,4.0))
 
 
-col1.pyplot(fig)
+col1b.pyplot(fig)
 
 
 
@@ -239,10 +240,7 @@ table_dict = {
 
 table_df = pd.DataFrame.from_dict(data=table_dict, orient='index', columns=['Wind', 'Solar', 'Diesel'])
 
-col1b.table(table_df)
-
-
-
+col1c.table(table_df)
 
 
 
