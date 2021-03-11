@@ -9,17 +9,15 @@ import seaborn as sns
 from source_data import data_df_dict
 import wind_calcs
 
-########## Loading Data into Streamlit ############
 
 
+#####################################################################
+# Main Script
+#####################################################################
 
-
-#### Looking creating calculations for wind power cost: includes size, capacity factor, wind class suggestion,
-
-
-
-###Main Script
-## Page Layout
+##################################
+# Page Layout
+###################################
 st.set_page_config(layout="wide")
 
 col1a, col2a = st.beta_columns((1,1))
@@ -29,15 +27,25 @@ col1, col2, col3 = st.beta_columns((1.5,1,1))
 col1b, col2b = st.beta_columns((1,1))
 
 
-#Title
+###########################
+# Title
+###########################
 col1a.title('Alaska Rural Energy Calculator')
 
+######################################################
+# Loading in DataFrame 
 
-#Loading in DataFrame ###################################################
+@st.cache
+def load_data():
+    fh = os.getcwd() + '\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\data\processed\Complete_combined_wind_solar_diesel.pkl'
+    return pd.read_pickle(filepath_or_buffer=fh, compression='bz2')
 
-#data_df = pd.read_csv(filepath_or_buffer=os.path.commonpath('TabSep_Complete_combined_wind_solar_diesel.tsv'), sep='\t')
 
-data_df = pd.DataFrame.from_dict(data_df_dict)
+data_df = load_data()
+
+
+######################################################################
+# Selections on which city to comapre and making dataframe for it
 
 #extracting city list for options
 city_options = list(data_df['Name'])
@@ -45,30 +53,24 @@ city_options = list(data_df['Name'])
 #Selecting Data
 city_selector = col2a.selectbox(label='Select City', options=city_options)
 
-#Display DataFrame
+# city dataframe
 @st.cache
 def selected_city_df(df: object, selected_city):
     selected_df = df.loc[df['Name'] == selected_city]
     return pd.DataFrame(data=selected_df)
 
+
 selected_df = selected_city_df(data_df, selected_city=city_selector)
 
 
-
-
-
-
-
-
-# Creating drop down menu for setting interest and inflation rate
+############################################################
+# Creating drop down menu for setting interest rate
 expand = col2b.beta_expander('Interest Rate for Project', expanded=False)
 
 interest_rate = expand.select_slider(label='Precentage (%)', options=[x/10 for x in range(1,201)], value=5.0)
-#inflation_rate = expand.select_slider(label='Inflation Rate (%)', options=[x/10 for x in range(0,101)], value=2.0)
+
+# Set Inflation rate as it has minimal effect of Levelised Cost of Energy Calculations.
 inflation_rate = 2.0
-
-
-
 
 
 ##################################################################
