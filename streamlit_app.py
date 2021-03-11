@@ -5,9 +5,12 @@ from streamlit.logger import setup_formatter
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
+# program files with calculations for energy sources.
 from source_data import data_df_dict
 import wind_calcs
+import solar_calcs
 
 
 
@@ -35,13 +38,15 @@ col1a.title('Alaska Rural Energy Calculator')
 ######################################################
 # Loading in DataFrame 
 
+data_df = pd.DataFrame(data_df_dict)
+
 @st.cache
 def load_data():
     fh = os.getcwd() + '\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\data\processed\Complete_combined_wind_solar_diesel.pkl'
     return pd.read_pickle(filepath_or_buffer=fh, compression='bz2')
 
 
-data_df = load_data()
+#data_df = load_data()
 
 
 ######################################################################
@@ -129,34 +134,20 @@ col3.subheader('Solar Energy')
 # selecting 
 panel_lifetime = col3.slider(label='Solar Panel Lifetime (years)', min_value=20, max_value=45, value=30, step=1)
 
+# Extracting default Capacity factor
+default_solar_cap_factor = solar_calcs.solar_capacity_factor(df=selected_df)
 
-
-def solar_capacity_factor(df):
-    ac_annual_kwh = df['solar_ac_annual_1kw']
-    capacity_factor = ac_annual_kwh / 8760
-    return round(capacity_factor * 100, -1).item()
-
-
-default_solar_cap_factor = solar_capacity_factor(df=selected_df)
-
-est_solar_cap_factor = col3.select_slider(label='Output Capacity Factor (%)', 
+# Manual slider for adjusting solar output capacity factor
+est_solar_cap_factor = col3.select_slider(
+                                label='Output Capacity Factor (%)', 
                                 options=[x/10 for x in range(50,201)], 
                                 value=default_solar_cap_factor,
                                 )
 
+# Solar Installation Size 
+est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_factor) 
 
-# Solar Installation Size ####################################################################################
-
-def solar_size_est(df, cap_factor):
-    total_kwh = df['total_kwh_sold'].item()
-    decimal_cap = cap_factor / 100
-    est_size = total_kwh * 0.2 / (decimal_cap * 8760)    #solar_ac_annual_1kw is a measuremnt of kwh 
-    return int(round(est_size, -2))
-
-
-est_panel_size = solar_size_est(selected_df, cap_factor=est_solar_cap_factor) 
-
-
+# selecting installtion size
 solar_installation_size = col3.select_slider(
                         label='Installion Size of Panels (kW)', 
                         options=[x*100 for x in range(1,101)], 
