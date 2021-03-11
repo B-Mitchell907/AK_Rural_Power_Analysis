@@ -25,14 +25,15 @@ def size_est(df, cap_factor):
 def est_capex_per_kw(df):
     lowest_capex = 3000
     highest_capex = 13500
+
     pce_cost = df['pce_rate'].item()
     kw_coef = (highest_capex - lowest_capex) / 0.75
     if pce_cost == 0 or pce_cost == 'nan':
         capex = lowest_capex
     elif pce_cost >= 0.75:
-        capex = lowest_capex
+        capex = highest_capex
     else:
-        capex = 1500 + pce_cost * kw_coef
+        capex = lowest_capex + (pce_cost * kw_coef)
     return int(round(capex, -2))
 
 

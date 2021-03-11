@@ -176,7 +176,7 @@ solar_default_capex = solar_calcs.est_capex_per_kw(df=selected_df)
 
 solar_capex_value = col3.select_slider(
                             label='CapEx of Solar Project ($/kW)', 
-                            options=[x*100 for x in range(10,150)], 
+                            options=[x*100 for x in range(10,151)], 
                             value=solar_default_capex,
                             )
 
@@ -198,25 +198,24 @@ est_solar_LCOE = solar_calcs.LCOE_per_kwh(
 
 
 
+################################################
+# Diesel Calculations
+################################################
+
+diesel_cost = round(float(selected_df['diesel_cost_per_kwh']), 3)
 
 
 
-
-
-
-
-####################################################################################
+###################################################################################
 # Plotting 
 #######################################################################################
 col1.header('Energy Cost Comparison')
-
-diesel_cost = round(float(selected_df['diesel_cost_per_kwh']), 3)
 
 combined_lcoe = {'Wind': est_wind_LCOE, 'Solar': est_solar_LCOE, 'Diesel':diesel_cost}
 
 df_combined_lcoe = pd.DataFrame.from_dict(data=combined_lcoe, orient='index').rename(columns={0:'Cost per kilowatt-hour, ($/kWh)'})
 
-#col3.bar_chart(df_combined_lcoe)
+col3.bar_chart(df_combined_lcoe)
 
 fig,ax = plt.subplots()
 ax = sns.barplot(
@@ -224,6 +223,8 @@ ax = sns.barplot(
             x=df_combined_lcoe['Cost per kilowatt-hour, ($/kWh)'], 
             palette='colorblind',
             )
+
+
 
 col1.pyplot(fig)
 
