@@ -43,7 +43,7 @@ def adjusting_capex():
 
 
 
-#
+# 
 def annual_production_kwh(panel_array_size, solar_cap_factor):
     decimal_cap = solar_cap_factor / 100
     production_kwh = decimal_cap * 8760 * panel_array_size
