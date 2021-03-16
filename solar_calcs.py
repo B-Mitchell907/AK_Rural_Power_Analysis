@@ -7,6 +7,7 @@ def capacity_factor(df):
     ac_annual_kwh = df['solar_ac_annual_1kw']
     capacity_factor = ac_annual_kwh / 8760
     return round(capacity_factor * 100, -1).item()
+    sdf
 
 
 # Estimating size of solar 
