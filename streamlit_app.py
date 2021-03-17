@@ -1,4 +1,5 @@
 from numpy import rot90
+from pandas.core.reshape.concat import concat
 import streamlit as st
 from logging import error
 from streamlit.logger import setup_formatter
@@ -259,10 +260,16 @@ col1c.table(table_df)
 
 #st.subheader('Calculator Description')
 
-txt_file = open('information.txt', 'r')
-description = txt_file.read()
-col2c.write(description)
-txt_file.close()
 
-# col2c.write("*Disclaimer About Calculator:* "
-  # "This program does not garuntee the default estimations and approximation about each energy sources is correct for a given city/village.")
+dir_file = Path(__file__)
+txt_file = dir_file.parent / 'information.txt'
+
+txt = ""
+for line in open(txt_file, 'r'):
+    txt = txt + line
+
+col2c.write(txt)    
+
+# done
+
+
