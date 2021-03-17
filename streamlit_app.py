@@ -167,7 +167,7 @@ est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_fact
 # selecting installtion size
 solar_installation_size = col3b.select_slider(
                             label='Installion Size of Panels (kW)', 
-                            options=[x*100 for x in range(1,151)], 
+                            options=[x*50 for x in range(1,301)], 
                             value=est_panel_size,
                             )
 
