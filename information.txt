@@ -1,4 +1,4 @@
-*Disclaimer About Calculator:* 
+*Disclaimer:* 
 This program does not garuntee the default estimations and approximation about each city/village is 
 correct.
 The purpose of the calculator is show relative cost difference based of the existing Diesel energy 
