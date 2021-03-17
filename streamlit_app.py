@@ -259,6 +259,10 @@ col1c.table(table_df)
 
 #st.subheader('Calculator Description')
 
-col2c.write("*Disclaimer About Calculator:* "
-    "This program does not garuntee the default estimations and approximation about each energy sources is correct for a given city/village."
-)
+txt_file = open('information.txt', 'r')
+description = txt_file.read()
+col2c.write(description)
+txt_file.close()
+
+# col2c.write("*Disclaimer About Calculator:* "
+  # "This program does not garuntee the default estimations and approximation about each energy sources is correct for a given city/village.")
