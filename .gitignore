@@ -3,6 +3,8 @@ data\processed\combined_wind_solar_diesel.pkl
 data\processed\TabSep_Complete_combined_wind_solar_diesel.tsv
 data\raw\AK_outdated_energy_data.pkl
 
+source_data.py
+
 .vscode\settings.json
 
 
