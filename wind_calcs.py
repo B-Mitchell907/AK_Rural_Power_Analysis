@@ -17,9 +17,9 @@ def Turbine_size_est(df, est_cap_factor):
     est_size = total_kwh * 0.3 / (8760 * est_cap_factor)
     rounded_size = int(round(est_size, -2))
     
+    # adjusting for round to zero error
     if rounded_size == 0:
         rounded_size = 50
-
     return int(rounded_size)
 
 
