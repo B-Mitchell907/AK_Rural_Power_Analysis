@@ -2,6 +2,7 @@ from numpy import rot90
 import streamlit as st
 from logging import error
 from streamlit.logger import setup_formatter
+from pathlib import Path
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -40,7 +41,10 @@ col1a.title('Alaska Rural Energy Cost Calculator')
 # Loading in DataFrame 
 @st.cache
 def load_data():
-    fh = os.getcwd() + '\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\data\processed\Complete_combined_wind_solar_diesel.pkl'
+    data_file = Path(__file__)
+    fh = data_file.parent / 'Complete_combined_wind_solar_diesel.pkl'
+
+    #fh = os.getcwd() + '\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\data\processed\Complete_combined_wind_solar_diesel.pkl'
     return pd.read_pickle(filepath_or_buffer=fh, compression='bz2')
 
 
