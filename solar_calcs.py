@@ -23,10 +23,7 @@ def size_est(df, cap_factor):
 ## estimates are dervied from PCE (Power Cost Equalizer) rate.
 ## this can represent how costly it is to produce power in given city.
 #### A Correlation between PCE rate and CapEx is used for estimation.
-def est_capex_per_kw(df):
-    lowest_capex = 3000
-    highest_capex = 13500
-
+def est_capex_per_kw(df, lowest_capex, highest_capex):
     pce_cost = df['pce_rate'].item()
     kw_coef = (highest_capex - lowest_capex) / 0.75
     if pce_cost == 0 or pce_cost == 'nan':

@@ -166,14 +166,18 @@ est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_fact
 
 # selecting installtion size
 solar_installation_size = col3b.select_slider(
-                        label='Installion Size of Panels (kW)', 
-                        options=[x*100 for x in range(1,151)], 
-                        value=est_panel_size,
-                        )
+                            label='Installion Size of Panels (kW)', 
+                            options=[x*100 for x in range(1,151)], 
+                            value=est_panel_size,
+                            )
 
 
 # Capital Expenditure for Solar Project
-solar_default_capex = solar_calcs.est_capex_per_kw(df=selected_df)
+solar_default_capex = solar_calcs.est_capex_per_kw(
+                                    df=selected_df, 
+                                    lowest_capex= 3000,
+                                    highest_capex= 13500
+                                    )
 
 solar_capex_value = col3b.select_slider(
                             label='CapEx of Solar Project ($/kW)', 
