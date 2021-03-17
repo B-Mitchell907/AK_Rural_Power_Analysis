@@ -1,0 +1,17 @@
+*Disclaimer About Calculator:* 
+This program does not garuntee the default estimations and approximation about each city/village is 
+correct.
+The purpose of the calculator is show relative cost difference based of the existing Diesel energy 
+cost and estimations of cost for the installation of Wind or Solar energy. 
+The default settings for the size of a Wind/Solar installation is determined by size needed to produce
+30% of total power (kWh) used in the city/village for a entire year.
+In actual application for Wind energy installation in rural scenarios, the median for energy produced by
+wind was near 30% of total, however for Solar cases the actual precentage of energy production is 
+much lower.
+The approximation for a project Capital Expenditure is calculated from the Power Cost Equalizer (PCE) rate
+for each city/village.
+In was discovered in analyzing past projects that the PCE rate correlates well 
+with general cost of constrcution, shipping, and remoteness from a larger hub city/village.
+Thus, the driving factor for estimating cost in this calculator.
+Note, older Wind and Solar projects were done before techonolgy prices could have become less expensive, 
+these project cost were still taken in account.  
