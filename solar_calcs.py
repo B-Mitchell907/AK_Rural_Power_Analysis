@@ -7,7 +7,7 @@ def capacity_factor(df):
     ac_annual_kwh = df['solar_ac_annual_1kw']
     capacity_factor = ac_annual_kwh / 8760
     return round(capacity_factor * 100, -1).item()
-    sdf
+
 
 
 # Estimating size of solar 
@@ -37,7 +37,7 @@ def est_capex_per_kw(df, lowest_capex, highest_capex):
 
     ###  Need to fix coefficient for adjusting solar array size by
 def adjusting_capex(est_capex, size_kw):
-    
+
     pass
 
 

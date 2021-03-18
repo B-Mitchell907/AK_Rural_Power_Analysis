@@ -235,7 +235,7 @@ ax = sns.barplot(
             palette='colorblind',
             )
 
-ax.set(xlim=(0,4.0))
+ax.set(xlim=(0,3.0))
 
 
 col1b.pyplot(fig)
