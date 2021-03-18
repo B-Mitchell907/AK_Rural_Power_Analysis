@@ -5,7 +5,7 @@ import pandas as pd
 #### actual results will vary
 def default_capacity_factor(df) -> float:
     wind_power_class = df['wpc'].item()
-    wpc_to_cap_factor = {7:32, 6:29, 5:26, 4:23, 3:21, 2:18, 1:15}
+    wpc_to_cap_factor = {7:32, 6:29, 5:26, 4:23, 3:20, 2:15, 1:10}
     return wpc_to_cap_factor[wind_power_class]
 
 
