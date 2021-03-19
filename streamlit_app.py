@@ -183,7 +183,7 @@ solar_installation_size = col3b.select_slider(
 solar_default_capex = solar_calcs.est_capex_per_kw(
                                     df=selected_df, 
                                     lowest_capex= 3000,
-                                    highest_capex= 13500
+                                    highest_capex= 5500
                                     )
 
 solar_capex_value = col3b.select_slider(
@@ -235,7 +235,7 @@ ax = sns.barplot(
             palette='colorblind',
             )
 
-ax.set(xlim=(0,3.0))
+ax.set(xlim=(0,2.5))
 
 
 col1b.pyplot(fig)
