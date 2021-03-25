@@ -164,7 +164,7 @@ default_solar_cap_factor = solar_calcs.capacity_factor(df=selected_df)
 # Manual slider for adjusting solar output capacity factor
 est_solar_cap_factor = col3b.select_slider(
                                 label='Output Capacity Factor (%)', 
-                                options=[x/10 for x in range(50,201)], 
+                                options=[x/10 for x in range(50,151)], 
                                 value=default_solar_cap_factor,
                                 )
 
