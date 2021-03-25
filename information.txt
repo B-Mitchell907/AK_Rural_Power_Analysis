@@ -1,5 +1,5 @@
 *Disclaimer:* 
-This program does not guarantee the default estimations and approximation about each city is 
+This program does not guarantee the default estimations and approximation about each city are 
 correct.
 The purpose of the calculator is to show relative cost difference based on the existing Diesel energy 
 cost and estimations of charge for the installation of Wind or Solar power. 
@@ -13,5 +13,5 @@ rate for each city.
 It was found in analyzing past projects that the PCE rate correlates well 
 with the general cost of construction, shipping, and remoteness from a larger hub city/village.
 Thus, the driving factor for estimating the cost in this calculator.
-Note; past Wind and Solar projects were done before technology prices could have become less expensive; 
+Note, past Wind and Solar projects were done before technology prices could have become less expensive; 
 these project cost were still taken into account.  
