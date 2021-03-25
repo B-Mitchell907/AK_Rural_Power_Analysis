@@ -1,11 +1,11 @@
+## extra and uneeded files in the folder
 testing_nb.ipynb
-data\processed\combined_wind_solar_diesel.pkl
-data\processed\TabSep_Complete_combined_wind_solar_diesel.tsv
-data\raw\AK_outdated_energy_data.pkl
-
+combined_wind_solar_diesel.pkl
+TabSep_Complete_combined_wind_solar_diesel.tsv
+AK_outdated_energy_data.pkl
 source_data.py
 
-.vscode\settings.json
+settings.json
 
 
 # Byte-compiled / optimized / DLL files 
