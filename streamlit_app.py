@@ -107,7 +107,7 @@ default_cap_factor = wind_calcs.default_capacity_factor(df=selected_df)
 # slider for selecting capacity factor
 capacity_factor = col2b.select_slider(
                             label='Output Capacity Factor (%)', 
-                            options=[x for x in range(10,46)], 
+                            options=[x for x in range(5,46)], 
                             value=default_cap_factor
                             )
 
