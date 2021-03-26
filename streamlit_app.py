@@ -223,17 +223,29 @@ est_solar_LCOE = solar_calcs.LCOE_per_kwh(
 col2b.subheader('Diesel Energy')
 col3b.subheader("")
 
-diesel_cost = selected_df['diesel_cost_per_kwh'].item()
-rounded_diesel = float(round(diesel_cost, 2))
 
 
-diesel_lcoe = col2b.select_slider(label='Diesel Price per Gallon ($/gal)',
-                                options=[round(x*0.01, 2) for x in range(1,201)],
-                                value=rounded_diesel,
-                                )
+diesel_kwh = selected_df['diesel_cost_per_kwh'].item()
+rounded_diesel_kwh = round(diesel_kwh, 2)
 
-st.write(selected_df)
+default_diesel_price = selected_df['fuel_price'].item()
+rounded_diesel_price = round(default_diesel_price, 2)
 
+
+diesel_price = col2b.select_slider(
+                            label=f'Diesel Price per Gallon, default: ${rounded_diesel_price}/gal',
+                            options=[round(x*0.01,2) for x in range(200,1001)],
+                            value=rounded_diesel_price
+                            )
+
+
+def diesel_cost_kwh(df, price):
+    diesel_efficiency = df['diesel_efficiency'].item()
+    lcoe = price / diesel_efficiency
+    return round(lcoe, 3)
+
+
+diesel_lcoe = diesel_cost_kwh(df=selected_df, price=diesel_price)
 
 
 
@@ -255,7 +267,7 @@ ax = sns.barplot(
             palette='colorblind',
             )
 
-ax.set(xlim=(0,2.5))
+ax.set(xlim=(0,1.5))
 
 
 col1b.pyplot(fig)
@@ -263,12 +275,12 @@ col1b.pyplot(fig)
 
 
 # Table ########
-rounded_solar_lcoe = round(est_solar_LCOE,2)
+
 
 table_dict = {
             'Installation Size (kW)': [wind_installation_size, solar_installation_size, '-'], 
             'Capital Expenditure ($/kW)': [wind_capex_value, solar_capex_value, '-'],
-            'Energy Production Cost ($/kWh)': [round(est_wind_LCOE,3), round(est_solar_LCOE,3), diesel_lcoe]}
+            'Energy Production Cost ($/kWh)': [round(est_wind_LCOE, 3), round(est_solar_LCOE, 3), diesel_lcoe]}
 
 table_df = pd.DataFrame.from_dict(data=table_dict, orient='index', columns=['Wind', 'Solar', 'Diesel'])
 
