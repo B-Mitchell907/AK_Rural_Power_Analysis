@@ -233,7 +233,7 @@ rounded_diesel_price = round(default_diesel_price, 2)
 
 
 diesel_price = col2b.select_slider(
-                            label=f'Diesel Price per Gallon, default: ${rounded_diesel_price}/gal',
+                            label=f'Diesel Price per Gallon, default: ${rounded_diesel_price} / gal',
                             options=[round(x*0.01,2) for x in range(200,1001)],
                             value=rounded_diesel_price
                             )
