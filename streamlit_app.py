@@ -220,8 +220,21 @@ est_solar_LCOE = solar_calcs.LCOE_per_kwh(
 ################################################
 # Diesel Calculations
 ################################################
+col2b.subheader('Diesel Energy')
+col3b.subheader("")
 
-diesel_cost = round(float(selected_df['diesel_cost_per_kwh']), 3)
+diesel_cost = selected_df['diesel_cost_per_kwh'].item()
+rounded_diesel = float(round(diesel_cost, 2))
+col3b.write(rounded_diesel)
+
+diesel_lcoe = col2b.select_slider(label='Diesel Price per Gallon ($/gal)',
+                                options=[x*0.01 for x in range(1,801)],
+                                value=rounded_diesel,
+                                )
+
+
+
+
 
 
 
@@ -230,7 +243,7 @@ diesel_cost = round(float(selected_df['diesel_cost_per_kwh']), 3)
 #######################################################################################
 col1b.header('Energy Cost Comparison')
 
-combined_lcoe = {'Wind': est_wind_LCOE, 'Solar': est_solar_LCOE, 'Diesel':diesel_cost}
+combined_lcoe = {'Wind': est_wind_LCOE, 'Solar': est_solar_LCOE, 'Diesel': rounded_diesel}
 
 df_combined_lcoe = pd.DataFrame.from_dict(data=combined_lcoe, orient='index').rename(columns={0:'Cost per kilowatt-hour, ($/kWh)'})
 
@@ -249,22 +262,23 @@ col1b.pyplot(fig)
 
 
 
-
 # Table ########
+rounded_solar_lcoe = round(est_solar_LCOE,2)
+
 table_dict = {
             'Installation Size (kW)': [wind_installation_size, solar_installation_size, '-'], 
             'Capital Expenditure ($/kW)': [wind_capex_value, solar_capex_value, '-'],
-            'Energy Production Cost ($/kWh)': [round(est_wind_LCOE,3), round(est_solar_LCOE,3), diesel_cost]}
+            'Energy Production Cost ($/kWh)': [round(est_wind_LCOE,3), round(est_solar_LCOE,3), rounded_diesel]}
 
 table_df = pd.DataFrame.from_dict(data=table_dict, orient='index', columns=['Wind', 'Solar', 'Diesel'])
 
-col1c.table(table_df)
+col1b.table(table_df)
 
 
 
-
-#### Adding Descripotion of Calculator and citing data sources
-
+##################################################################
+#### Adding Description of Calculator and 
+##################################################################
 #st.subheader('Calculator Description')
 
 
@@ -275,8 +289,8 @@ txt = ""
 for line in open(txt_file, 'r'):
     txt = txt + line
 
-col2c.write(txt)    
-
-# done
+st.write(txt)    
 
 
+################
+# end of app
