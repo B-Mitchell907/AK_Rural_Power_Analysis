@@ -161,6 +161,7 @@ panel_lifetime = col3b.slider(
 # Extracting default Capacity factor
 default_solar_cap_factor = solar_calcs.capacity_factor(df=selected_df)
 
+
 # Manual slider for adjusting solar output capacity factor
 est_solar_cap_factor = col3b.select_slider(
                                 label='Output Capacity Factor (%)', 
@@ -172,9 +173,11 @@ est_solar_cap_factor = col3b.select_slider(
 est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_factor) 
 
 # selecting installtion size
+solar_size_list = [10,20,30,40,50] + [x*100 for x in range(1,151)]
+
 solar_installation_size = col3b.select_slider(
                             label='Installion Size of Panels (kW)', 
-                            options=[x*50 for x in range(1,301)], 
+                            options= solar_size_list,
                             value=est_panel_size,
                             )
 
