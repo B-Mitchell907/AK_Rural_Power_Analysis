@@ -1,12 +1,13 @@
-import pandas as pd
+import streamlit as st
 
 
 # determing solar caparcity factor for location
 ### Estimates were etracted from NREL PVWatts calculator.
+@st.cache 
 def capacity_factor(df):
-    ac_annual_kwh = df['solar_ac_annual_1kw']
-    capacity_factor = ac_annual_kwh / 8760
-    return round(capacity_factor * 100, -1).item()
+    ac_annual_kwh = df['solar_ac_annual_1kw'].item()
+    capacity_factor_percent = (ac_annual_kwh / 8760) * 100
+    return round(capacity_factor_percent, 1)
 
 
 
@@ -16,7 +17,13 @@ def size_est(df, cap_factor):
     total_kwh = df['total_kwh_sold'].item()
     decimal_cap = cap_factor / 100
     est_size = total_kwh * 0.3 / (decimal_cap * 8760)    #solar_ac_annual_1kw is a measuremnt of kwh 
-    return int(round(est_size, -2))
+    rounded_size = int(round(est_size, -2))
+
+    if rounded_size == 0:
+        rounded_size = int(round(est_size, -1))
+    else:
+        return rounded_size
+        
 
 
 # Estimating Capital Expediture for a city project.
