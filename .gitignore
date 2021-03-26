@@ -4,10 +4,7 @@ combined_wind_solar_diesel.pkl
 TabSep_Complete_combined_wind_solar_diesel.tsv
 AK_outdated_energy_data.pkl
 
-source_data.py
-
 settings.json
-
 
 # Byte-compiled / optimized / DLL files 
 __pycache__/
