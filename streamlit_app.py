@@ -225,10 +225,10 @@ col3b.subheader("")
 
 diesel_cost = selected_df['diesel_cost_per_kwh'].item()
 rounded_diesel = float(round(diesel_cost, 2))
-col3b.write(rounded_diesel)
+
 
 diesel_lcoe = col2b.select_slider(label='Diesel Price per Gallon ($/gal)',
-                                options=[x*0.01 for x in range(1,801)],
+                                options=[round(x*0.01, 2) for x in range(1,201)],
                                 value=rounded_diesel,
                                 )
 
@@ -243,7 +243,7 @@ diesel_lcoe = col2b.select_slider(label='Diesel Price per Gallon ($/gal)',
 #######################################################################################
 col1b.header('Energy Cost Comparison')
 
-combined_lcoe = {'Wind': est_wind_LCOE, 'Solar': est_solar_LCOE, 'Diesel': rounded_diesel}
+combined_lcoe = {'Wind': est_wind_LCOE, 'Solar': est_solar_LCOE, 'Diesel': diesel_lcoe}
 
 df_combined_lcoe = pd.DataFrame.from_dict(data=combined_lcoe, orient='index').rename(columns={0:'Cost per kilowatt-hour, ($/kWh)'})
 
@@ -268,7 +268,7 @@ rounded_solar_lcoe = round(est_solar_LCOE,2)
 table_dict = {
             'Installation Size (kW)': [wind_installation_size, solar_installation_size, '-'], 
             'Capital Expenditure ($/kW)': [wind_capex_value, solar_capex_value, '-'],
-            'Energy Production Cost ($/kWh)': [round(est_wind_LCOE,3), round(est_solar_LCOE,3), rounded_diesel]}
+            'Energy Production Cost ($/kWh)': [round(est_wind_LCOE,3), round(est_solar_LCOE,3), diesel_lcoe]}
 
 table_df = pd.DataFrame.from_dict(data=table_dict, orient='index', columns=['Wind', 'Solar', 'Diesel'])
 
