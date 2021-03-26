@@ -190,12 +190,12 @@ solar_installation_size = col3b.select_slider(
 solar_default_capex = solar_calcs.est_capex_per_kw(
                                     df=selected_df, 
                                     lowest_capex= 3000,
-                                    highest_capex= 5500
+                                    highest_capex= 6000
                                     )
 
 solar_capex_value = col3b.select_slider(
                             label='CapEx of Solar Project ($/kW)', 
-                            options=[x*100 for x in range(10,151)], 
+                            options=[x*100 for x in range(30,71)], 
                             value=solar_default_capex,
                             )
 
@@ -232,7 +232,7 @@ diesel_lcoe = col2b.select_slider(label='Diesel Price per Gallon ($/gal)',
                                 value=rounded_diesel,
                                 )
 
-
+st.write(selected_df)
 
 
 
