@@ -1,17 +1,8 @@
 *Disclaimer:* 
-This program does not guarantee the default estimations and approximation about each city are 
-correct.
-The purpose of the calculator is to show relative cost difference based on the existing Diesel energy 
-cost and estimations of charge for the installation of Wind or Solar power. 
-The default settings for the size of a Wind/Solar installation is defined by calculating the size 
-required to produce 30% of total power (kWh) used in the city for an entire year.
-In an actual application for Wind energy installation in rural scenarios, the median for energy
-produced by the wind was near 30% of the total. However, for Solar cases, the actual percentage of
-energy production is much lower.
-The approximation for a project Capital Expenditure is calculated from the Power Cost Equalizer (PCE)
-rate for each city.
-It was found in analyzing past projects that the PCE rate correlates well 
-with the general cost of construction, shipping, and remoteness from a larger hub city/village.
-Thus, the driving factor for estimating the cost in this calculator.
-Note, past Wind and Solar projects were done before technology prices could have become less expensive; 
-these project cost were still taken into account.  
+The purpose of this calculator is to show relative cost and performance differences between Wind, Solar, and Diesel power. 
+This program does not guarantee the default estimations produced for each city. The default size of a Wind/Solar installation 
+is determined by calculating the size required to produce 30% of the total energy (kWh) used in the city for an entire year. 
+Power Cost Equalization (PCE) is a state government program to reduce the cost of electricity in Rural Alaska.  
+The amount of PCE assistance was used as an indicator of how costly energy projects are in a community. It was used to adjust
+ the default estimation of wind and solar construction costs. Construction costs for past wind and solar projects and recent 
+ cost trends were also considered.
