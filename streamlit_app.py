@@ -58,9 +58,10 @@ data_df = pd.DataFrame(data_df_dict)
 
 #extracting city list for options
 city_options = list(data_df['Name'])
+sorted_cities = sorted(city_options)
 
 #Selecting Data
-city_selector = col2a.selectbox(label='Select City', options=city_options)
+city_selector = col2a.selectbox(label='Select City', options=sorted_cities)
 
 # city dataframe
 @st.cache
@@ -82,10 +83,13 @@ interest_rate = expand.select_slider(label='Precentage (%)', options=[x/10 for x
 inflation_rate = 2.0
 
 
+
+
+##############################################################################
 ##################################################################
 #           Performing Calculations for all energy sources         
 ##################################################################
-
+###############################################################################
 
 ##################################################################
 # Wind Energy Calculations and Selections
