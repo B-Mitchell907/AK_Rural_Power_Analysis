@@ -75,14 +75,19 @@ selected_df = selected_city_df(data_df, selected_city=city_selector)
 
 ############################################################
 # Creating drop down menu for setting interest rate
-expand = col3a.beta_expander('Interest Rate for Project', expanded=False)
-
-interest_rate = expand.select_slider(label='Precentage (%)', options=[x/10 for x in range(1,101)], value=5.0)
+expand = col3a.beta_expander('Inflation Adjusted Interest Rate for a project', expanded=False)
 
 # Set Inflation rate as it has minimal effect of Levelised Cost of Energy Calculations.
 inflation_rate = 2.0
 
+adjusted_interest_rate = expand.select_slider(
+                                    label='Precentage (%)', 
+                                    options=[x/10 for x in range(1,81)], 
+                                    value=3.0
+                                    )
 
+
+interest_rate = adjusted_interest_rate + inflation_rate
 
 
 ##############################################################################
