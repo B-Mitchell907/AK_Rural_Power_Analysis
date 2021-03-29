@@ -1,3 +1,6 @@
+## This is the App ###
+
+# modules needed for this app
 from numpy import rot90
 from pandas.core.reshape.concat import concat
 import streamlit as st
@@ -8,7 +11,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
+
 
 # program files with calculations for energy sources.
 from source_data import data_df_dict
@@ -70,7 +73,7 @@ def selected_city_df(df: object, selected_city):
     return pd.DataFrame(data=selected_df)
 
 
-selected_df = selected_city_df(data_df, selected_city=city_selector)
+selected_df = selected_city_df(df=data_df, selected_city=city_selector)
 
 
 ############################################################
@@ -78,12 +81,18 @@ selected_df = selected_city_df(data_df, selected_city=city_selector)
 expand = col3a.beta_expander('Inflation Adjusted Interest Rate', expanded=False)
 
 # Set Inflation rate as it has minimal effect of Levelised Cost of Energy Calculations.
-inflation_rate = 2.0
+inflation_rate = expand.number_input(
+                            label='Inflation (%)', 
+                            min_value=0.0,
+                            max_value=10.0,
+                            value=2.4, 
+                            step=0.1
+                            )
 
 adjusted_interest_rate = expand.select_slider(
-                                    label='Precentage (%)', 
+                                    label='Adjusted Interest (%)', 
                                     options=[x/10 for x in range(1,81)], 
-                                    value=3.0
+                                    value= 3.0
                                     )
 
 
@@ -229,18 +238,22 @@ col2b.subheader('Diesel Energy')
 col3b.subheader("")
 
 
+def default_diesel_price(df):
+    price = df['fuel_price'].item()
+    if price == 0.0 or price == 'nan':
+        price_75th_precentile = 3.43
+        return price_75th_precentile
+    else:
+        return round(price,2)
 
-diesel_kwh = selected_df['diesel_cost_per_kwh'].item()
-rounded_diesel_kwh = round(diesel_kwh, 2)
 
-default_diesel_price = selected_df['fuel_price'].item()
-rounded_diesel_price = round(default_diesel_price, 2)
 
+default_price = default_diesel_price(df=selected_df)
 
 diesel_price = col2b.select_slider(
                             label=f'Diesel Price per Gallon, default: ${rounded_diesel_price} / gal',
                             options=[round(x*0.01,2) for x in range(200,1001)],
-                            value=rounded_diesel_price
+                            value=default_price
                             )
 
 
@@ -294,7 +307,7 @@ col1b.table(table_df)
 
 
 ##################################################################
-#### Adding Description of Calculator and 
+#  Adding Description of Calculator and 
 ##################################################################
 #st.subheader('Calculator Description')
 
@@ -307,6 +320,12 @@ for line in open(txt_file, 'r'):
     txt = txt + line
 
 st.write(txt)    
+
+
+
+####################################################
+# Adding URL links to github and deepnote scratch sheet
+
 
 
 ################
