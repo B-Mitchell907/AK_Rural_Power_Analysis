@@ -16,7 +16,7 @@ import seaborn as sns
 # program files with calculations for energy sources.
 from source_data import data_df_dict
 import wind_calcs
-import solar_calcs
+import solar_calcs 
 
 
 
