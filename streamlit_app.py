@@ -47,7 +47,6 @@ col1a.title('Alaska Rural Energy Cost Calculator')
 def load_data():
     data_file = Path(__file__)
     fh = data_file.parent / 'Complete_combined_wind_solar_diesel.pkl'
-    #fh = os.getcwd() + '\Documents\Coding-Scripts\Professional_Projects\AK_Rural_Power_Analysis\data\processed\Complete_combined_wind_solar_diesel.pkl'
     return pd.read_pickle(filepath_or_buffer=fh, compression='bz2')
 
 
