@@ -251,7 +251,7 @@ def default_diesel_price(df):
 default_price = default_diesel_price(df=selected_df)
 
 diesel_price = col2b.select_slider(
-                            label=f'Diesel Price per Gallon, default: ${rounded_diesel_price} / gal',
+                            label=f'Diesel Price per Gallon, current: ${default_price} / gal',
                             options=[round(x*0.01,2) for x in range(200,1001)],
                             value=default_price
                             )
