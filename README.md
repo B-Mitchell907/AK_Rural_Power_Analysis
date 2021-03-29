@@ -6,5 +6,4 @@ ETL work for this app was done through DeepNote Python notebooks. Below is the l
 The app can deployed at this url for Streamlit.
 
 DeepNote https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Analysis-4K7iJJuSR8KOVOk7w9fE7A
-
 Streamlit: 
