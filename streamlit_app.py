@@ -53,6 +53,7 @@ def load_data():
 
 
 data_df = pd.DataFrame(data_df_dict)
+st.write(data_df)
 
 ######################################################################
 # Selections on which city to comapre and making dataframe for it
@@ -230,6 +231,8 @@ col2b.subheader('Diesel Energy')
 col3b.subheader("")
 
 
+st.write(selected_df)
+
 def default_diesel_price(df):
     price = df['fuel_price'].item()
     if price == 0.0 or price == 'nan':
@@ -250,8 +253,12 @@ diesel_price = col2b.select_slider(
 
 
 def diesel_cost_kwh(df, price):
+    maintence_per_kwh = 0.01
     diesel_efficiency = df['diesel_efficiency'].item()
-    lcoe = price / diesel_efficiency
+    if diesel_efficiency == 'nan' or diesel_efficiency == 0:
+        diesel_efficiency = 12.76
+    
+    lcoe = (price / diesel_efficiency) + maintence_per_kwh
     return round(lcoe, 3)
 
 
