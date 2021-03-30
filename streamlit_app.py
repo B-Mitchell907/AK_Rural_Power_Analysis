@@ -35,7 +35,6 @@ col1b, col2b, col3b = st.beta_columns((1.5,1,1))
 
 col1c, col2c = st.beta_columns((1.5,2))
 
-
 ###########################
 # Title
 ###########################
@@ -80,13 +79,7 @@ selected_df = selected_city_df(df=data_df, selected_city=city_selector)
 expand = col3a.beta_expander('Inflation Adjusted Interest Rate', expanded=False)
 
 # Set Inflation rate as it has minimal effect of Levelised Cost of Energy Calculations.
-inflation_rate = expand.number_input(
-                            label='Inflation (%)', 
-                            min_value=0.0,
-                            max_value=10.0,
-                            value=2.4, 
-                            step=0.1
-                            )
+inflation_rate = 2.4
 
 adjusted_interest_rate = expand.select_slider(
                                     label='Adjusted Interest (%)', 
@@ -251,7 +244,7 @@ default_price = default_diesel_price(df=selected_df)
 
 diesel_price = col2b.select_slider(
                             label=f'Diesel Price per Gallon, current: ${default_price} / gal',
-                            options=[round(x*0.01,2) for x in range(200,1001)],
+                            options=[round(x*0.01,2) for x in range(175,1001)],
                             value=default_price
                             )
 
@@ -330,3 +323,5 @@ st.write("GitHub: *https://github.com/B-Mitchell907/AK_Rural_Power_Calculator.gi
 st.write("DeepNote: *https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Analysis-4K7iJJuSR8KOVOk7w9fE7A*")
 ################
 # end of app
+
+
