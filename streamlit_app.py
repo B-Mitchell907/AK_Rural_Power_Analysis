@@ -54,8 +54,6 @@ def load_data():
 
 
 data_df = pd.DataFrame(data_df_dict)
-st.write(data_df)
-
 
 ######################################################################
 # Selections on which city to comapre and making dataframe for it
