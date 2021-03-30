@@ -11,6 +11,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import time
 
 
 # program files with calculations for energy sources.
@@ -55,6 +56,7 @@ def load_data():
 data_df = pd.DataFrame(data_df_dict)
 st.write(data_df)
 
+
 ######################################################################
 # Selections on which city to comapre and making dataframe for it
 
@@ -62,7 +64,7 @@ st.write(data_df)
 city_options = list(data_df['Name'])
 sorted_cities = sorted(city_options)
 
-#Selecting Data
+#Selecting city 
 city_selector = col2a.selectbox(label='Select City', options=sorted_cities)
 
 # city dataframe
@@ -73,6 +75,12 @@ def selected_city_df(df: object, selected_city):
 
 
 selected_df = selected_city_df(df=data_df, selected_city=city_selector)
+#for city in sorted_cities:
+    #selected_df = selected_city_df(df=data_df, selected_city=city)
+    #time.sleep(5.0)
+
+
+    
 
 
 ############################################################
