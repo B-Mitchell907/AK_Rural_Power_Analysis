@@ -119,7 +119,7 @@ est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=0.25)
 
 # Slider for manually selecting installation size
 wind_installation_size = col2b.select_slider(
-                                label='Installation Size of Turbines (kW)', 
+                                label='Collective Installation Size of Turbines (kW)', 
                                 options=[x*50 for x in range(1,201)], 
                                 value=est_turbine_size
                                 )
@@ -179,7 +179,7 @@ est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_fact
 solar_size_list = [10,20,30,40,50] + [x*100 for x in range(1,151)]
 
 solar_installation_size = col3b.select_slider(
-                            label='Installion Size of Panels (kW)', 
+                            label='Collective Installation Size of Panels (kW)', 
                             options= solar_size_list,
                             value=est_panel_size,
                             )
