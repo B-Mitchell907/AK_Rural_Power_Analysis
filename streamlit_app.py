@@ -88,6 +88,8 @@ interest_rate = adjusted_interest_rate + inflation_rate
 ##################################################################
 ###############################################################################
 
+
+
 ##################################################################
 # Wind Energy Calculations and Selections
 ##################################################################
@@ -117,7 +119,7 @@ est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=0.25)
 
 # Slider for manually selecting installation size
 wind_installation_size = col2b.select_slider(
-                                label='Total Size of Installation (kW)', 
+                                label='Installation Size of Turbines (kW)', 
                                 options=[x*50 for x in range(1,201)], 
                                 value=est_turbine_size
                                 )
