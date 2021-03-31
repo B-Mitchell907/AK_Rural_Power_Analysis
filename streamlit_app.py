@@ -11,7 +11,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import time
+import os
 
 
 # program files with calculations for energy sources.
@@ -30,7 +30,6 @@ import solar_calcs
 ###################################
 st.set_page_config(layout="wide")
 
-headline, b = st.beta_columns(2)
 col1a, col2a, col3a = st.beta_columns((1.5,1,1)) 
 
 col1b, col2b, col3b = st.beta_columns((1.5,1,1))
@@ -44,17 +43,8 @@ col1a.title('Alaska Rural Energy Cost Calculator')
 
 ######################################################
 # Loading in DataFrame 
-@st.cache
-def load_data():
-    data_file = Path(__file__)
-    fh = data_file.parent / 'Complete_combined_wind_solar_diesel.pkl'
-    return pd.read_pickle(filepath_or_buffer=fh, compression='bz2')
-
-
-#data_df = load_data()
-
-
 data_df = pd.DataFrame(data_df_dict)
+
 
 ######################################################################
 # Selections on which city to comapre and making dataframe for it
@@ -63,13 +53,8 @@ data_df = pd.DataFrame(data_df_dict)
 city_options = list(data_df['Name'])
 sorted_cities = sorted(city_options)
 
-
 #Selecting city 
-#city_selector = col2a.selectbox(label='Select City', options=sorted_cities)
-
-index_num = col2a.number_input("testing cities", min_value=0, max_value=114, step=1)
-city_selector = sorted_cities[index_num]
-col2a.write(city_selector)
+city_selector = col2a.selectbox(label='Select City', options=sorted_cities)
 
 # city dataframe
 @st.cache
@@ -79,7 +64,6 @@ def selected_city_df(df: object, selected_city):
 
 
 selected_df = selected_city_df(df=data_df, selected_city=city_selector)
-headline.write(selected_df)
     
 ############################################################
 # Creating drop down menu for setting interest rate
@@ -236,8 +220,6 @@ est_solar_LCOE = solar_calcs.LCOE_per_kwh(
 col2b.subheader('Diesel Energy')
 col3b.subheader("")
 
-
-st.write(selected_df)
 
 def default_diesel_price(df):
     price = df['fuel_price'].item()
