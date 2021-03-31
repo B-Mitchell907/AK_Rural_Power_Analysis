@@ -30,7 +30,8 @@ import solar_calcs
 ###################################
 st.set_page_config(layout="wide")
 
-col1a, col2a, col3a = st.beta_columns((1.5,1,1))
+headline, b = st.beta_columns(2)
+col1a, col2a, col3a = st.beta_columns((1.5,1,1)) 
 
 col1b, col2b, col3b = st.beta_columns((1.5,1,1))
 
@@ -63,10 +64,12 @@ city_options = list(data_df['Name'])
 sorted_cities = sorted(city_options)
 
 
-
-
 #Selecting city 
-city_selector = col2a.selectbox(label='Select City', options=sorted_cities)
+#city_selector = col2a.selectbox(label='Select City', options=sorted_cities)
+
+index_num = col2a.number_input("testing cities", min_value=0, max_value=114, step=1)
+city_selector = sorted_cities[index_num]
+col2a.write(city_selector)
 
 # city dataframe
 @st.cache
@@ -76,10 +79,8 @@ def selected_city_df(df: object, selected_city):
 
 
 selected_df = selected_city_df(df=data_df, selected_city=city_selector)
-
+headline.write(selected_df)
     
-
-
 ############################################################
 # Creating drop down menu for setting interest rate
 expand = col3a.beta_expander('Inflation Adjusted Interest Rate', expanded=False)
@@ -146,7 +147,7 @@ wind_adjusted_capex = wind_calcs.adjusted_capex_per_kw(default_capex=default_cap
 # manual slider for adjusting Capital Expenditure per kiloWatt
 wind_capex_value = col2b.select_slider(
                         label='CapEx of Wind Project ($/kW)', 
-                        options=[x*100 for x in range(40,301)], 
+                        options=[x*100 for x in range(40,326)], 
                         value=wind_adjusted_capex
                         )
 
