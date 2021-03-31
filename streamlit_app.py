@@ -317,9 +317,8 @@ st.write(txt)
 
 st.write("URL's to GitHub repository for the app and to the DeepNote python notebook that contains the ETL work for this app.")
 st.write("GitHub: *https://github.com/B-Mitchell907/AK_Rural_Power_Calculator.git*")
-st.write("DeepNote: *https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Calculator-4K7iJJuSR8KOVOk7w9fE7A* ")
+st.write("DeepNote: *https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Calculator-4K7iJJuSR8KOVOk7w9fE7A*")
+
 
 ################
 # end of app
-
-
