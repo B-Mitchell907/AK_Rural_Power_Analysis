@@ -23,7 +23,7 @@ def Turbine_size_est(df, est_cap_factor):
     return int(rounded_size)
 
 
-# estimating Capital Expenditure for a given city/village project.
+# estimating Capital Expenditure per kW installed for a given city project.
 ## estimates are dervied from PCE (Power Cost Equalizer) rate.
 ## this can represent how costly it is to produce power in given city.
 #### A Correlation between PCE rate and CapEx is used for estimation.   
@@ -58,7 +58,7 @@ def adjusted_capex_per_kw(default_capex, size):
 
 
 # calculating Levelized Cost Of Energy per kiloWatt-hour
-def LCOE_per_kwh(interest, N, capacity_factor, turbine_size_kw, capex):
+def LCOE_per_kwh(interest, N, turbine_size_kw, capex):
     #changing turbine size for cities if turnbine_size_kw == 0
     if turbine_size_kw == 0:
         turbine_size_kw = 50
@@ -67,12 +67,9 @@ def LCOE_per_kwh(interest, N, capacity_factor, turbine_size_kw, capex):
     
     operating_maintence = 0.036   #dollars per kwh
     r = interest / 100
-    cap_fac = capacity_factor / 100
 
     annaul_capex = capex * r * (1+r)**N / ((1+r)**N - 1)
-
-    
-
+    lcoe = annaul_capex + operating_maintence
     return round(lcoe, 3)
 
 
