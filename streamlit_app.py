@@ -100,7 +100,7 @@ turbine_lifetime = col2b.slider(
                             label='Wind Turbine Lifetime (years)', 
                             min_value=15, 
                             max_value=35, 
-                            value=20, 
+                            value=25, 
                             step=1
                             )
 
@@ -125,7 +125,7 @@ wind_installation_size = col2b.select_slider(
                                 )
 
 # Default estimate for Capital Expenditure 
-default_capex = wind_calcs.est_capex_per_kw(df=selected_df)
+default_capex = wind_calcs.est_capex_per_kw(df=selected_df, low_capex=4000, high_capex=32000)
     
 # adjusting Capital expenditure to reflect construction cost based of city/village size and remoteness 
 wind_adjusted_capex = wind_calcs.adjusted_capex_per_kw(default_capex=default_capex, size=wind_installation_size)
@@ -317,8 +317,7 @@ st.write(txt)
 
 st.write("URL's to GitHub repository for the app and to the DeepNote python notebook that contains the ETL work for this app.")
 st.write("GitHub: *https://github.com/B-Mitchell907/AK_Rural_Power_Calculator.git*")
-st.write("DeepNote: *https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Calculator-4K7iJJuSR8KOVOk7w9fE7A*")
-
+st.write("DeepNote: *https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Calculator-4K7iJJuSR8KOVOk7w9fE7A* ")
 
 ################
 # end of app
