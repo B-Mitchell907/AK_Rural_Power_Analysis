@@ -225,7 +225,7 @@ col3b.subheader("")
 
 def default_diesel_price(df):
     price = df['fuel_price'].item()
-    return round(price,3)
+    return round(price,2)
 
 
 default_price = default_diesel_price(df=selected_df)
