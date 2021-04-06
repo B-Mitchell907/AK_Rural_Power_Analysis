@@ -235,12 +235,10 @@ def default_diesel_price(df):
 
 default_price = default_diesel_price(df=selected_df)
 
-default_price_2 = selected_df['fuel_price'].item()
-col2b.write(f"{default_price_2}")
 
 diesel_price = col2b.select_slider(
                             label=f'Diesel Price per Gallon, current: ${default_price} / gal',
-                            options=[round(x*0.01,2) for x in range(125,801)],
+                            options=[round(x*0.01,2) for x in range(220,801)],
                             value=default_price
                             )
 
