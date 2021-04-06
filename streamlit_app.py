@@ -244,7 +244,7 @@ def diesel_cost_kwh(df, price):
         diesel_efficiency = 12.76
     
     lcoe = (price / diesel_efficiency) + maintence_per_kwh
-    return round(lcoe, 3)
+    return round(lcoe, 2)
 
 
 diesel_lcoe = diesel_cost_kwh(df=selected_df, price=diesel_price)
