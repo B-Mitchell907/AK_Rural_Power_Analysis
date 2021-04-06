@@ -44,7 +44,6 @@ def est_capex_per_kw(df, lowest_capex, highest_capex):
 
     ###  Need to fix coefficient for adjusting solar array size by
 def adjusting_capex(est_capex, size_kw):
-
     pass
 
 

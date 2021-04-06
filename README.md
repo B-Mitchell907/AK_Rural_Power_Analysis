@@ -7,4 +7,4 @@ The app can deployed at this url for Streamlit.
 
 DeepNote: https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Analysis-4K7iJJuSR8KOVOk7w9fE7A
 
-Streamlit: https://share.streamlit.io/b-mitchell907/ak_rural_power_calculator/testing_main
+Streamlit: https://share.streamlit.io/b-mitchell907/ak_rural_power_calculator/main
