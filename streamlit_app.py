@@ -225,7 +225,8 @@ col3b.subheader("")
 
 def default_diesel_price(df):
     price = df['fuel_price'].item()
-    return round(price,2)
+    return round(price, 2)
+
 
 
 default_price = default_diesel_price(df=selected_df)
@@ -244,7 +245,7 @@ def diesel_cost_kwh(df, price):
         diesel_efficiency = 12.76
     
     lcoe = (price / diesel_efficiency) + maintence_per_kwh
-    return round(lcoe, 2)
+    return round(lcoe, 3)
 
 
 diesel_lcoe = diesel_cost_kwh(df=selected_df, price=diesel_price)
