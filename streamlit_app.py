@@ -235,7 +235,7 @@ def default_diesel_price(df):
 
 default_price = default_diesel_price(df=selected_df)
 
-default_price_2 = selected_df.fuel_price.item()
+default_price_2 = selected_df['fuel_price'].item()
 col2b.write(default_price_2)
 
 diesel_price = col2b.select_slider(
