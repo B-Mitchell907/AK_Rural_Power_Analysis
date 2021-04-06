@@ -3,6 +3,9 @@ testing_nb.ipynb
 combined_wind_solar_diesel.pkl
 TabSep_Complete_combined_wind_solar_diesel.tsv
 AK_outdated_energy_data.pkl
+data\processed\final_combined_wind_solar_diesel.pkl
+data\processed\Complete_combined_wind_solar_diesel.pkl
+
 
 settings.json
 
