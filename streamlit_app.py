@@ -225,11 +225,7 @@ col3b.subheader("")
 
 def default_diesel_price(df):
     price = df['fuel_price'].item()
-    if price == 0.0 or price == 'nan':
-        price_75th_precentile = 3.43
-        return price_75th_precentile
-    else:
-        return round(price,2)
+    return round(price,3)
 
 
 default_price = default_diesel_price(df=selected_df)
