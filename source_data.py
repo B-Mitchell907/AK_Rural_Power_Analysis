@@ -2,6 +2,7 @@
 
 import numpy as np
 
+
 data_df_dict = {'Name': ['Allakaket',
   'Aniak',
   'Bethel',
