@@ -58,6 +58,32 @@ def adjusted_capex_per_kw(default_capex, size):
     return round(adjusted_cap, -2)
 
 
+def project_capex(adj_capex, size_kw):
+    if size_kw == 0:
+        size_kw = 50
+    else:
+        size_kw = size_kw
+    return adj_capex * size_kw
+
+
+
+def total_annual_capex(proj_capex, lifetime, interest_rate):
+    i = interest_rate / 100
+    N = lifetime
+    operating_maintence = 0.036
+
+    annual_cap = proj_capex * i * (1+i)**N / ((1+i)**N -1)
+
+    return annual_cap + operating_maintence
+
+
+
+def lcoe_per_kwh():
+    return
+
+
+
+
 
 # calculating Levelized Cost Of Energy per kiloWatt-hour
 def LCOE_per_kwh(interest, inflation, N, capacity_factor, turbine_size_kw, capex):
