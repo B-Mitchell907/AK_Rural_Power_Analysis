@@ -94,6 +94,7 @@ interest_rate = adjusted_interest_rate + inflation_rate
 # Wind Energy Calculations and Selections
 ##################################################################
 col2b.subheader('Wind Energy')
+col2b.text("Calculated for 10% of annual kWh used.")
 
 # selecting lifetime span of turbines for the project
 turbine_lifetime = col2b.slider(
@@ -151,6 +152,7 @@ est_wind_LCOE = wind_calcs.LCOE_per_kwh(
 # Solar Calcs
 ########################################################################
 col3b.subheader('Solar Energy')
+col3b.text("Calculated for 30% of annual kWh used.")
 
 # selecting 
 panel_lifetime = col3b.slider(
