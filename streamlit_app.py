@@ -139,9 +139,11 @@ wind_capex_value = col2b.select_slider(
 
 # Levelised Cost of Energy 
 est_wind_LCOE = wind_calcs.LCOE_per_kwh(
-                        interest=interest_rate, inflation=inflation_rate, 
-                        N=turbine_lifetime, capacity_factor=capacity_factor, 
-                        turbine_size_kw=wind_installation_size, capex=wind_capex_value,
+                        interest=interest_rate, 
+                        N=turbine_lifetime,  
+                        capex=wind_capex_value,
+                        size_kw=wind_installation_size,
+                        cap_fac=capacity_factor
                         )
 
 

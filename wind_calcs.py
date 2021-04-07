@@ -1,3 +1,4 @@
+from solar_calcs import capacity_factor
 import pandas as pd
 import numpy as np
 
@@ -50,7 +51,9 @@ def adjusted_capex_per_kw(default_capex, size):
     p = np.poly1d(z)
 
     if size > 1500:
-        adjusted_cap = default_capex * ((turbine_kw_installation[5000] - turbine_kw_installation[2000]) / (5000-2000))
+        slope = (turbine_kw_installation[5000] - turbine_kw_installation[2000]) / (5000-2000)
+        y_intercept = 6726
+        adjusted_cap = default_capex
     else:
         adjusted_cap = p(size)
     return round(adjusted_cap, -2)
@@ -58,13 +61,15 @@ def adjusted_capex_per_kw(default_capex, size):
 
 
 # calculating Levelized Cost Of Energy per kiloWatt-hour
-def LCOE_per_kwh(interest, N, turbine_size_kw, capex):
+def LCOE_per_kwh(interest, N, capex, size_kw, cap_fac):
     
-    operating_maintence = 0.036   #dollars per kwh
-    r = interest / 100
+    operating_maintence = 0.036     # dollars per kwh
+    r = interest / 100              # decimal format of interest
 
-    annaul_capex = capex * r * (1 + r)**N / ((1+r)**N - 1)
-    lcoe = annaul_capex + operating_maintence
+    project_capex = capex * size_kw 
+    annaul_capex = project_capex * r * (1 + r)**N / ((1+r)**N - 1)
+    kwh_produced = 8766 * size_kw * cap_fac
+    lcoe = (annaul_capex / kwh_produced) + operating_maintence
     return round(lcoe, 3)
 
 
