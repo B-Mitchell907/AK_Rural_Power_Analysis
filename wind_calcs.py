@@ -50,12 +50,16 @@ def adjusted_capex_per_kw(default_capex, size):
     z = np.polyfit(x, y, deg=2,)
     p = np.poly1d(z)
 
-    if size > 1500:
+    if size >= 2000:
         slope = (turbine_kw_installation[5000] - turbine_kw_installation[2000]) / (5000-2000)
+        slope = -0.3
         y_intercept = 6726
-        adjusted_cap = default_capex
+        adjusted_cap = slope * size + y_intercept
+
+        if adjusted_cap < 4000:
+            adjusted_cap = 4000
     else:
-        adjusted_cap = p(size)
+        adjusted_cap = default_capex
     return round(adjusted_cap, -2)
 
 
@@ -65,10 +69,11 @@ def LCOE_per_kwh(interest, N, capex, size_kw, cap_fac):
     
     operating_maintence = 0.036     # dollars per kwh
     r = interest / 100              # decimal format of interest
+    cap_fac_dec = cap_fac / 100
 
     project_capex = capex * size_kw 
     annaul_capex = project_capex * r * (1 + r)**N / ((1+r)**N - 1)
-    kwh_produced = 8766 * size_kw * cap_fac
+    kwh_produced = 8766 * size_kw * cap_fac_dec
     lcoe = (annaul_capex / kwh_produced) + operating_maintence
     return round(lcoe, 3)
 
