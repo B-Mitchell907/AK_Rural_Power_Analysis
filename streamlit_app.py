@@ -101,7 +101,7 @@ turbine_lifetime = col2b.slider(
                             label='Wind Turbine Lifetime (years)', 
                             min_value=15, 
                             max_value=35, 
-                            value=20, 
+                            value=25, 
                             step=1
                             )
 
