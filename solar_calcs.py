@@ -16,7 +16,7 @@ def capacity_factor(df):
 def size_est(df, cap_factor):
     total_kwh = df['total_kwh_sold'].item()
     decimal_cap = cap_factor / 100
-    est_size = total_kwh * 0.3 / (decimal_cap * 8760)    #solar_ac_annual_1kw is a measuremnt of kwh 
+    est_size = total_kwh * 0.10 / (decimal_cap * 8766)    #solar_ac_annual_1kw is a measuremnt of kwh 
     rounded_size = int(round(est_size, -2))
 
     if rounded_size == 0:
@@ -52,7 +52,7 @@ def adjusting_capex(est_capex, size_kw):
 # 
 def annual_production_kwh(panel_array_size, solar_cap_factor):
     decimal_cap = solar_cap_factor / 100
-    production_kwh = decimal_cap * 8760 * panel_array_size
+    production_kwh = decimal_cap * 8766 * panel_array_size
     return float(production_kwh)
 
 
