@@ -13,8 +13,10 @@ def default_capacity_factor(df) -> float:
 # estimating size for a wind turbine installtion based of total amount of power consumed in city/grid
 ### using 30% of overall use. value is near median for other state projects.
 def Turbine_size_est(df, est_cap_factor):
+    decimal_cap_fac = est_cap_factor/100
+    
     total_kwh = df['total_kwh_sold'].item()
-    est_size = total_kwh * 0.3 / (8760 * est_cap_factor)
+    est_size = total_kwh * 0.3 / (8766 * decimal_cap_fac)
     rounded_size = int(round(est_size, -2))
     
     # adjusting for round to zero error
