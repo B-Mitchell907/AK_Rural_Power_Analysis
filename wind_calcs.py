@@ -23,6 +23,7 @@ def Turbine_size_est(df, est_cap_factor):
     if rounded_size == 0:
         rounded_size = 50
     return int(rounded_size)
+    
 
 
 # estimating Capital Expenditure for a given city/village project.
