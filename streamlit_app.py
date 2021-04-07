@@ -311,11 +311,9 @@ st.write(txt)
 ####################################################
 # Adding URL links to github and deepnote scratch sheet
 
-st.write("URL's to GitHub repository for the app and to the DeepNote python notebook that contains the ETL work for this app.")
+st.write("*Below:* URL's to the GitHub repository for the app and the DeepNote python notebook that contains all the ETL and EDA work for this app.")
 st.write("GitHub: *https://github.com/B-Mitchell907/AK_Rural_Power_Calculator.git*")
 st.write("DeepNote: *https://deepnote.com/@braden-mitchell/Alaska-Rural-Power-Calculator-4K7iJJuSR8KOVOk7w9fE7A* ")
 
 ################
 # end of app
-
-
