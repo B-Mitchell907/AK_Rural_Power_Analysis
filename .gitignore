@@ -1,8 +1,18 @@
 ## extra and uneeded files in the folder
+
+#practice notebook
 testing_nb.ipynb
-combined_wind_solar_diesel.pkl
-TabSep_Complete_combined_wind_solar_diesel.tsv
-AK_outdated_energy_data.pkl
+
+#raw
+AK_wind_project_size_capex - Sheet1.tsv
+pce-2019.tsv
+us-doe-gov-333d394d-7256-4af3-8904-f0cc42777881.zip
+
+#processed
+complete_combined_wind_solar_diesel.pkl
+
+
+
 
 settings.json
 
