@@ -115,7 +115,7 @@ capacity_factor = col2b.select_slider(
                             )
 
 # Turbine Installation Size 
-est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=0.25) 
+est_turbine_size = wind_calcs.Turbine_size_est(selected_df, est_cap_factor=capacity_factor) 
 
 # Slider for manually selecting installation size
 wind_installation_size = col2b.select_slider(
