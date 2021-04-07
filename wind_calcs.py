@@ -44,9 +44,9 @@ def est_capex_per_kw(df, low_capex, high_capex):
 ## Coefficents are taking from a Logistic Regression of past projects with respect to CapEx vs Installation size
 def adjusted_capex_per_kw(default_capex, size):
     turbine_kw_installation = {50:29815, 100:20680, 500:9705, 1000:7319, 2000:5676, 5000:4236}
-    x = np.array(turbine_kw_installation.keys)
-    y = np.array(turbine_kw_installation.values)
-    z = np.polyfit(x,y,deg=2)
+    x = np.array(list(turbine_kw_installation.keys()))
+    y = np.array(list(turbine_kw_installation.values()))
+    z = np.polyfit(x, y, deg=2,)
     p = np.poly1d(z)
 
     if size > 1500:
