@@ -1,14 +1,12 @@
-import streamlit as st
+
 
 
 # determing solar caparcity factor for location
 ### Estimates were etracted from NREL PVWatts calculator.
-@st.cache 
 def capacity_factor(df):
     ac_annual_kwh = df['solar_ac_annual_1kw'].item()
     capacity_factor_percent = (ac_annual_kwh / 8760) * 100
     return round(capacity_factor_percent, 1)
-
 
 
 # Estimating size of solar 
@@ -24,7 +22,6 @@ def size_est(df, cap_factor):
     else:
         return rounded_size
         
-
 
 # Estimating Capital Expediture for a city project.
 ## estimates are dervied from PCE (Power Cost Equalizer) rate.
@@ -42,19 +39,15 @@ def est_capex_per_kw(df, lowest_capex, highest_capex):
     return int(round(capex, -2))
 
 
-    ###  Need to fix coefficient for adjusting solar array size by
+###  Need to fix coefficient for adjusting solar array size by
 def adjusting_capex(est_capex, size_kw):
-
-    pass
-
+    return None
 
 
-# 
 def annual_production_kwh(panel_array_size, solar_cap_factor):
     decimal_cap = solar_cap_factor / 100
     production_kwh = decimal_cap * 8766 * panel_array_size
     return float(production_kwh)
-
 
 
 def LCOE_per_kwh(interest, inflation, N, solar_production, size_kw, capex):
@@ -67,3 +60,9 @@ def LCOE_per_kwh(interest, inflation, N, solar_production, size_kw, capex):
     annual_production_kwh = solar_production
     lcoe = (net_present_value * capital_recovery_factor) / annual_production_kwh         
     return float(round(lcoe, 3))
+
+
+
+#### testing new functions
+
+def total_annual_capex(adjusted_capex, ):

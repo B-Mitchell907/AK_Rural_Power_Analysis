@@ -1,5 +1,3 @@
-import pandas as pd
-
 
 # determining a default capcity factor for a wind turbine for any given city based of wind power class
 #### actual results will vary
@@ -7,7 +5,6 @@ def default_capacity_factor(df) -> float:
     wind_power_class = df['wpc'].item()
     wpc_to_cap_factor = {7:32, 6:29, 5:26, 4:22, 3:18, 2:14, 1:8}
     return wpc_to_cap_factor[wind_power_class]
-
 
 
 # estimating size for a wind turbine installtion based of total amount of power consumed in city/grid
@@ -25,7 +22,6 @@ def Turbine_size_est(df, est_cap_factor):
     return int(rounded_size)
     
 
-
 # estimating Capital Expenditure for a given city/village project.
 ## estimates are dervied from PCE (Power Cost Equalizer) rate.
 ## this can represent how costly it is to produce power in given city.
@@ -39,7 +35,6 @@ def est_capex_per_kw(df):
     else:
         capex = 4000 + pce_cost * 34666
     return round(capex, -2)
-
 
 
 # Adjusting CapEx relativie to size of turbine installation.
@@ -61,33 +56,6 @@ def adjusted_capex_per_kw(default_capex, size):
     return round(adjusted_cap, -2)
 
 
-def project_capex(adj_capex, size_kw):
-    if size_kw == 0:
-        size_kw = 50
-    else:
-        size_kw = size_kw
-    return adj_capex * size_kw
-
-
-
-def total_annual_capex(proj_capex, lifetime, interest_rate):
-    i = interest_rate / 100
-    N = lifetime
-    operating_maintence = 0.036
-
-    annual_cap = proj_capex * i * (1+i)**N / ((1+i)**N -1)
-
-    return annual_cap + operating_maintence
-
-
-
-def lcoe_per_kwh():
-    return
-
-
-
-
-
 # calculating Levelized Cost Of Energy per kiloWatt-hour
 def LCOE_per_kwh(interest, inflation, N, capacity_factor, turbine_size_kw, capex):
     #changing turbine size for cities if turnbine_size_kw == 0
@@ -106,7 +74,4 @@ def LCOE_per_kwh(interest, inflation, N, capacity_factor, turbine_size_kw, capex
     annual_production_kwh = turbine_size_kw * cap_fac * 8760
     LCOE = (net_present_value * capital_recovery_factor) / annual_production_kwh   
     return round(LCOE, 3)
-
-
-
 

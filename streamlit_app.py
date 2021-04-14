@@ -97,12 +97,10 @@ col2b.subheader('Wind Energy')
 col2b.text("Calculated for 30% of annual kWh used.")
 
 # selecting lifetime span of turbines for the project
-turbine_lifetime = col2b.slider(
+turbine_lifetime = col2b.select_slider(
                             label='Wind Turbine Lifetime (years)', 
-                            min_value=15, 
-                            max_value=35, 
-                            value=25, 
-                            step=1,
+                            options=[x for x in range(15,36)], 
+                            value=25,
                             )
 
 # Capcity factor for Wind turbine output
