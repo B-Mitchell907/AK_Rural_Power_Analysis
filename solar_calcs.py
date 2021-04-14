@@ -66,3 +66,4 @@ def LCOE_per_kwh(interest, inflation, N, solar_production, size_kw, capex):
 #### testing new functions
 
 def total_annual_capex(adjusted_capex, ):
+    pass
