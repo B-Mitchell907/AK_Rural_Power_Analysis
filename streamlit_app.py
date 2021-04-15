@@ -78,9 +78,7 @@ adjusted_interest_rate = expand.select_slider(
                                     value= 3.0
                                     )
 
-
-interest_rate = adjusted_interest_rate + inflation_rate
-
+interest_rate = inflation_rate + adjusted_interest_rate
 
 ##############################################################################
 ##################################################################
@@ -163,18 +161,18 @@ panel_lifetime = col3b.slider(
                         )
 
 # Extracting default Capacity factor
-default_solar_cap_factor = solar_calcs.capacity_factor(df=selected_df)
+est_solar_cap_factor = solar_calcs.capacity_factor(df=selected_df)
 
 
 # Manual slider for adjusting solar output capacity factor
-est_solar_cap_factor = col3b.select_slider(
+solar_cap_factor = col3b.select_slider(
                                 label='Output Capacity Factor (%)', 
                                 options=[x/10 for x in range(50,151)], 
-                                value=default_solar_cap_factor,
+                                value= round(est_solar_cap_factor, 1)
                                 )
 
 # Solar Installation Size 
-est_panel_size = solar_calcs.size_est(selected_df, cap_factor=est_solar_cap_factor) 
+est_panel_size = solar_calcs.size_est(selected_df, cap_factor=solar_cap_factor) 
 
 # selecting installtion size
 solar_size_list = [10,20,30,40,50] + [x*100 for x in range(1,151)]
@@ -187,7 +185,7 @@ solar_installation_size = col3b.select_slider(
 
 
 # Capital Expenditure for Solar Project
-solar_default_capex = solar_calcs.est_capex_per_kw(
+solar_default_capex = solar_calcs.capex_per_kw(
                                     df=selected_df, 
                                     lowest_capex= 3000,
                                     highest_capex= 6000
@@ -196,25 +194,38 @@ solar_default_capex = solar_calcs.est_capex_per_kw(
 solar_capex_value = col3b.select_slider(
                             label='CapEx of Solar Project ($/kW)', 
                             options=[x*100 for x in range(30,71)], 
-                            value=solar_default_capex,
+                            value=round(solar_default_capex, -2),
                             )
 
-# Annual Production of Solar 
+# Needed Variable for calculating a levelised cost of Solar energy production
 solar_production = solar_calcs.annual_production_kwh(
-                            panel_array_size=solar_installation_size, 
-                            solar_cap_factor=est_solar_cap_factor,
+                                size_kw=solar_installation_size, 
+                                cap_factor=solar_cap_factor,
+                                )
+
+operating_cost = solar_calcs.operation_cost(
+                                maintence_per_kW=45, 
+                                size_kw=solar_installation_size
+                                )
+
+project_capex = solar_calcs.project_capex(
+                                capex_kw=solar_capex_value, 
+                                size=solar_installation_size
+                                )
+
+total_capex_kw = solar_calcs.total_annual_capex(
+                            project_capex=project_capex,
+                            lifetime=panel_lifetime,
+                            interest_rate=adjusted_interest_rate,
+                            operating_cost=operating_cost
                             )
+
 
 # Solar Levelised Cost of Energy 
-est_solar_LCOE = solar_calcs.LCOE_per_kwh(
-                    interest=interest_rate, 
-                    inflation=inflation_rate, 
-                    N=panel_lifetime, 
-                    solar_production= solar_production,
-                    size_kw=solar_installation_size, 
-                    capex=solar_capex_value,
-                    )
-
+est_solar_LCOE = solar_calcs.annual_cost_per_kwh(
+                                total_capex=total_capex_kw,
+                                annual_kwh=solar_production
+                                )
 
 
 ################################################
@@ -233,10 +244,10 @@ def default_diesel_price(df):
 default_price = default_diesel_price(df=selected_df)
 
 diesel_price = col2b.select_slider(
-                            label=f'Diesel Price per Gallon, current: ${default_price} / gal',
-                            options=[round(x*0.01,2) for x in range(200,801)],
-                            value=default_price
-                            )
+                        label=f'Diesel Price per Gallon, current: ${default_price} / gal',
+                        options=[round(x*0.01,2) for x in range(200,801)],
+                        value=default_price
+                        )
 
 
 def diesel_cost_kwh(df, price):
